@@ -1,0 +1,41 @@
+{
+  "_note": "Illustrative only. The brand, part number and URLs are fictional so that no real product is described incorrectly. It shows the shape of a complete record: one value per agreed field, each with a source.",
+  "manufacturer": { "name": "Example Pumps Inc.", "slug": "example-pumps-inc", "website": "https://example.com" },
+  "brand": { "name": "Example Pumps", "slug": "example-pumps", "website": "https://example.com" },
+  "product": {
+    "product_type": "pool-pump",
+    "mpn": "EX-150-VS",
+    "title": "Example Pumps EX-150-VS 1.5 HP Variable Speed Inground Pool Pump, 230 V",
+    "short_description": "Variable speed inground pool pump, 1.5 HP, 230 V, 2 in. union ports, ENERGY STAR certified.",
+    "long_description": "The EX-150-VS is a self-priming variable speed pump for inground pools. Its 1.5 HP motor runs on 230 V single-phase power and can be set anywhere from low-speed filtration to full flow. Union ports fit 2 in. plumbing. A strainer basket is included.",
+    "status": "draft"
+  },
+  "specs": [
+    { "key": "horsepower",               "value": 1.5,                       "source_url": "https://example.com/pumps/ex-150-vs/specs", "extracted_at": "2026-10-29", "extracted_by": "claude", "verified_by": null },
+    { "key": "total_horsepower",         "value": 1.65,                      "source_url": "https://example.com/pumps/ex-150-vs/specs", "extracted_at": "2026-10-29", "extracted_by": "claude", "verified_by": null },
+    { "key": "speed_type",               "value": "variable",                "source_url": "https://example.com/pumps/ex-150-vs/specs", "extracted_at": "2026-10-29", "extracted_by": "claude", "verified_by": null },
+    { "key": "voltage",                  "value": "230",                     "source_url": "https://example.com/pumps/ex-150-vs/specs", "extracted_at": "2026-10-29", "extracted_by": "claude", "verified_by": null },
+    { "key": "phase",                    "value": "single",                  "source_url": "https://example.com/pumps/ex-150-vs/specs", "extracted_at": "2026-10-29", "extracted_by": "claude", "verified_by": null },
+    { "key": "max_amperage",             "value": 8.2,                       "source_url": "https://example.com/docs/ex-150-vs-manual.pdf", "extracted_at": "2026-10-29", "extracted_by": "claude", "verified_by": null, "notes": "Manual, page 4, electrical data table." },
+    { "key": "max_flow_rate",            "value": 110,                       "source_url": "https://example.com/docs/ex-150-vs-manual.pdf", "extracted_at": "2026-10-29", "extracted_by": "claude", "verified_by": null, "notes": "Manual, page 6, performance curve at 3450 rpm." },
+    { "key": "application",              "value": "inground",                "source_url": "https://example.com/pumps/ex-150-vs",       "extracted_at": "2026-10-29", "extracted_by": "claude", "verified_by": null },
+    { "key": "self_priming",             "value": true,                      "source_url": "https://example.com/pumps/ex-150-vs/specs", "extracted_at": "2026-10-29", "extracted_by": "claude", "verified_by": null },
+    { "key": "port_size",                "value": "2 union",                 "source_url": "https://example.com/pumps/ex-150-vs/specs", "extracted_at": "2026-10-29", "extracted_by": "claude", "verified_by": null },
+    { "key": "housing_material",         "value": "Glass-filled thermoplastic", "source_url": "https://example.com/pumps/ex-150-vs/specs", "extracted_at": "2026-10-29", "extracted_by": "claude", "verified_by": null },
+    { "key": "strainer_basket_included", "value": true,                      "source_url": "https://example.com/pumps/ex-150-vs",       "extracted_at": "2026-10-29", "extracted_by": "claude", "verified_by": null },
+    { "key": "energy_star_certified",    "value": true,                      "source_url": "https://example.com/pumps/ex-150-vs/specs", "extracted_at": "2026-10-29", "extracted_by": "claude", "verified_by": null },
+    { "key": "weighted_energy_factor",   "value": 7.1,                       "source_url": "https://example.com/pumps/ex-150-vs/specs", "extracted_at": "2026-10-29", "extracted_by": "claude", "verified_by": null },
+    { "key": "certifications",           "value": "UL, NSF/ANSI 50",         "source_url": "https://example.com/pumps/ex-150-vs/specs", "extracted_at": "2026-10-29", "extracted_by": "claude", "verified_by": null },
+    { "key": "weight",                   "value": 42,                        "source_url": "https://example.com/pumps/ex-150-vs/specs", "extracted_at": "2026-10-29", "extracted_by": "claude", "verified_by": null },
+    { "key": "dimensions",               "value": "27.5 x 12.5 x 13.5",      "source_url": "https://example.com/pumps/ex-150-vs/specs", "extracted_at": "2026-10-29", "extracted_by": "claude", "verified_by": null },
+    { "key": "warranty",                 "value": "3-year limited warranty when installed by a qualified professional", "source_url": "https://example.com/support/warranty", "extracted_at": "2026-10-29", "extracted_by": "claude", "verified_by": null }
+  ],
+  "media": [
+    { "kind": "image",      "url": "https://example.com/images/ex-150-vs-front.jpg", "alt_text": "Example Pumps EX-150-VS, front view", "sort_order": 1, "source_url": "https://example.com/pumps/ex-150-vs" },
+    { "kind": "manual",     "url": "https://example.com/docs/ex-150-vs-manual.pdf",  "title": "Owner's manual", "sort_order": 2 },
+    { "kind": "spec_sheet", "url": "https://example.com/docs/ex-150-vs-spec.pdf",    "title": "Specification sheet", "sort_order": 3 }
+  ],
+  "proposed_spec_fields": [
+    { "suggested_key": "noise_level", "suggested_label": "Noise level", "example_value": "45 dB at low speed", "source_url": "https://example.com/pumps/ex-150-vs/specs", "rationale": "Stated on the spec page and relevant to buyers of variable speed pumps. Not in the agreed field list." }
+  ]
+}

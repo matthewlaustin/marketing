@@ -1,0 +1,27 @@
+{
+  "slug": "pool-pump",
+  "name": "Pool pump",
+  "description": "A pump that circulates water through a swimming pool's filtration system.",
+  "status": "draft",
+  "version": 1,
+  "fields": [
+    { "sort_order": 10,  "key": "horsepower",               "label": "Horsepower",               "data_type": "number",  "unit": "hp",  "required": true,  "description": "Rated motor horsepower as stated by the manufacturer." },
+    { "sort_order": 20,  "key": "total_horsepower",         "label": "Total horsepower",         "data_type": "number",  "unit": "hp",  "required": false, "description": "Total horsepower including service factor, where the manufacturer states it." },
+    { "sort_order": 30,  "key": "speed_type",               "label": "Speed type",               "data_type": "enum",    "unit": null,  "required": true,  "allowed_values": ["single", "dual", "variable"], "description": "Whether the motor runs at one speed, two speeds, or a continuously variable speed." },
+    { "sort_order": 40,  "key": "voltage",                  "label": "Voltage",                  "data_type": "enum",    "unit": "V",   "required": true,  "allowed_values": ["115", "230", "115/230"], "description": "Supply voltage the pump is designed for." },
+    { "sort_order": 50,  "key": "phase",                    "label": "Phase",                    "data_type": "enum",    "unit": null,  "required": false, "allowed_values": ["single", "three"], "description": "Single-phase or three-phase electrical supply." },
+    { "sort_order": 60,  "key": "max_amperage",             "label": "Maximum amperage",         "data_type": "number",  "unit": "A",   "required": false, "description": "Highest current draw stated by the manufacturer." },
+    { "sort_order": 70,  "key": "max_flow_rate",            "label": "Maximum flow rate",        "data_type": "number",  "unit": "gpm", "required": false, "description": "Highest flow rate stated by the manufacturer, in US gallons per minute." },
+    { "sort_order": 80,  "key": "application",              "label": "Application",              "data_type": "enum",    "unit": null,  "required": true,  "allowed_values": ["inground", "aboveground", "inground_or_aboveground"], "description": "The kind of pool the pump is intended for." },
+    { "sort_order": 90,  "key": "self_priming",             "label": "Self priming",             "data_type": "boolean", "unit": null,  "required": false, "description": "Whether the pump can lift water and start on its own without being manually filled." },
+    { "sort_order": 100, "key": "port_size",                "label": "Port size",                "data_type": "text",    "unit": "in",  "required": true,  "description": "Diameter of the inlet and outlet connections. Text, because unions and mixed sizes occur." },
+    { "sort_order": 110, "key": "housing_material",         "label": "Housing material",         "data_type": "text",    "unit": null,  "required": false, "description": "Material of the pump housing, as stated by the manufacturer." },
+    { "sort_order": 120, "key": "strainer_basket_included", "label": "Strainer basket included", "data_type": "boolean", "unit": null,  "required": false, "description": "Whether a hair and lint strainer basket is included." },
+    { "sort_order": 130, "key": "energy_star_certified",    "label": "ENERGY STAR certified",    "data_type": "boolean", "unit": null,  "required": false, "description": "Whether the pump carries ENERGY STAR certification." },
+    { "sort_order": 140, "key": "weighted_energy_factor",   "label": "Weighted energy factor",   "data_type": "number",  "unit": null,  "required": false, "description": "The US Department of Energy efficiency rating (WEF), where published." },
+    { "sort_order": 150, "key": "certifications",           "label": "Certifications",           "data_type": "text",    "unit": null,  "required": false, "description": "Safety and performance listings, for example UL, CSA, NSF/ANSI 50, as a comma-separated list." },
+    { "sort_order": 160, "key": "weight",                   "label": "Weight",                   "data_type": "number",  "unit": "lb",  "required": false, "description": "Shipping or unit weight in pounds, as stated by the manufacturer." },
+    { "sort_order": 170, "key": "dimensions",               "label": "Dimensions",               "data_type": "text",    "unit": "in",  "required": false, "description": "Length by width by height in inches, as stated by the manufacturer." },
+    { "sort_order": 180, "key": "warranty",                 "label": "Warranty",                 "data_type": "text",    "unit": null,  "required": false, "description": "The manufacturer's warranty terms, in the manufacturer's own words." }
+  ]
+}

@@ -20,8 +20,10 @@ source of the type's agreed field list. The database copy is loaded from it by a
    their own products: spec sheets, catalogue pages, comparison tables. Include a field only if
    it will be used; it is easy to add one later and hard to remove one that has values.
 3. For each field decide: a `key` (lowercase, underscores), a `label`, a one-sentence
-   `description`, a `data_type` (`text`, `number`, `boolean` or `enum`), a `unit` where it
-   applies, `allowed_values` for an enum, and whether it is `required`.
+   `description`, a `data_type` (`text`, `number`, `boolean`, `enum` for one value from a list,
+   or `multi_enum` for several), a `unit` where it applies, `allowed_values` for an enum or
+   multi_enum, and whether it is `required`. Do not add a warranty field: warranty is shared
+   (decision 0005).
    Keep required fields to the few that every product of the type must have.
 4. **Write `README.md` and `fields.json`** in a new folder named after the type's slug.
 5. **Write `example.json`** for one product, real or illustrative, with a source per value.

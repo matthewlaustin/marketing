@@ -17,8 +17,9 @@ apply it.
 
 ## Which Neon project
 
-Not yet recorded. When the project is chosen or created, add a decision file under
-`docs/decisions/` naming it, and note it here.
+Parked: the owner chose "decide later" (Marketing page, question 4). When a project is named,
+add a decision file under `docs/decisions/` naming it, note it here, and Claude starts the
+database session on the owner's go (question 8).
 
 ## How to apply files safely: the branch workflow
 
@@ -68,7 +69,9 @@ And one view, `product_specs_json`, which shows each product with its specs as o
 - A product can only be created for a product type whose status is `approved`.
 - A product's type cannot be changed after creation.
 - A spec value must belong to a field of the product's type, must be of the field's data type,
-  and for an enum field must be one of the allowed values.
+  for a one-from-a-list field must be one of the allowed values, and for a several-from-a-list
+  field must be a non-empty list of distinct allowed values.
+- A warranty type, when given, is `full`, `limited` or `prorated`.
 - Every spec value must cite a source: a URL or a media record.
 - A product cannot leave `draft` until it has a title and every required field has a value.
 

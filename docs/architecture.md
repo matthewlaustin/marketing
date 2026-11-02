@@ -33,8 +33,8 @@ marketing/
 Product development produces data for many product types, and each type needs different
 fields. The model keeps that cheap:
 
-- Fields that **every** product shares (brand, part number, title, descriptions, status) are
-  ordinary columns in the `products` table.
+- Fields that **every** product shares (brand, part number, title, descriptions, the four
+  standard warranty fields, status) are ordinary columns in the `products` table.
 - Fields that are **specific to a type** (horsepower for a pump, square footage for a filter)
   are not columns. They are rows in `spec_fields`: one row per field per product type. This is
   the agreed field list for the type.
@@ -44,6 +44,9 @@ fields. The model keeps that cheap:
 Adding a new product type is therefore: agree its field list, add a folder under
 `departments/product-development/product-types/`, write a seed that loads the list into
 `spec_fields`. No new tables and no migration.
+
+Each field has a data type: text, number, yes/no, one value from a fixed list, or several
+values from a fixed list (a pump rated for both 115 V and 230 V records both).
 
 The database enforces the rules itself. A value can only be saved for a field that belongs to
 the product's type. The value must match the field's data type and allowed values. Every value
@@ -80,6 +83,8 @@ See `departments/product-development/product-types/README.md` for the checklist.
 
 ## What is deliberately deferred
 
-- Where media **files** are hosted. The database stores URLs only.
+- Media file storage. Decided: Cloudflare R2 (decision 0004). Nothing is built until the
+  first upload is needed; the database stores URLs only.
+- How accessory and replacement-part products link to a product (Marketing page, question 16).
 - The programming language for anything that consumes the data.
 - Other sub-departments.

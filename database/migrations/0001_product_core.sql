@@ -79,9 +79,10 @@ create table spec_fields (
   key              text not null check (key ~ '^[a-z][a-z0-9_]*$'),
   label            text not null,
   description      text,
-  data_type        text not null check (data_type in ('text', 'number', 'boolean', 'enum')),
+  -- enum: one value from allowed_values. multi_enum: several values from it.
+  data_type        text not null check (data_type in ('text', 'number', 'boolean', 'enum', 'multi_enum')),
   unit             text,
-  -- For enum fields only: a JSON array of the allowed string values.
+  -- For enum and multi_enum fields only: a JSON array of the allowed string values.
   allowed_values   jsonb,
   is_required      boolean not null default false,
   sort_order       integer not null default 0,
@@ -89,13 +90,13 @@ create table spec_fields (
   updated_at       timestamptz not null default now(),
   unique (product_type_id, key),
   constraint enum_has_allowed_values check (
-    data_type <> 'enum'
+    data_type not in ('enum', 'multi_enum')
     or (allowed_values is not null
         and jsonb_typeof(allowed_values) = 'array'
         and jsonb_array_length(allowed_values) > 0)
   ),
   constraint only_enum_has_allowed_values check (
-    data_type = 'enum' or allowed_values is null
+    data_type in ('enum', 'multi_enum') or allowed_values is null
   )
 );
 
@@ -116,6 +117,11 @@ create table products (
   title              text,
   short_description  text,
   long_description   text,
+  -- Standard warranty fields, the same for every product type (decision 0005).
+  warranty_years            numeric check (warranty_years is null or warranty_years >= 0),
+  warranty_type             text check (warranty_type is null or warranty_type in ('full', 'limited', 'prorated')),
+  warranty_conditions       text,
+  warranty_component_terms  text,
   status             text not null default 'draft'
                      check (status in ('draft', 'in_review', 'approved', 'published')),
   created_at         timestamptz not null default now(),
@@ -152,6 +158,7 @@ create table product_specs (
   value_text       text,       -- text and enum fields
   value_number     numeric,    -- number fields
   value_boolean    boolean,    -- boolean fields
+  value_list       jsonb,      -- multi_enum fields: a JSON array of allowed string values
   source_url       text,
   source_media_id  uuid references product_media(id) on delete set null,
   extracted_at     timestamptz not null default now(),
@@ -163,7 +170,7 @@ create table product_specs (
   updated_at       timestamptz not null default now(),
   unique (product_id, spec_field_id),
   constraint exactly_one_value check (
-    num_nonnulls(value_text, value_number, value_boolean) = 1
+    num_nonnulls(value_text, value_number, value_boolean, value_list) = 1
   ),
   constraint value_has_source check (
     source_url is not null or source_media_id is not null
@@ -222,6 +229,23 @@ begin
       if not (f.allowed_values ? new.value_text) then
         raise exception 'value "%" is not allowed for field "%". Allowed: %',
           new.value_text, f.key, f.allowed_values
+          using errcode = 'check_violation';
+      end if;
+    when 'multi_enum' then
+      if new.value_list is null
+         or jsonb_typeof(new.value_list) <> 'array'
+         or jsonb_array_length(new.value_list) = 0 then
+        raise exception 'field "%" expects a non-empty list in value_list, drawn from %', f.key, f.allowed_values
+          using errcode = 'check_violation';
+      end if;
+      if (select count(*) from jsonb_array_elements_text(new.value_list))
+         <> (select count(distinct v) from jsonb_array_elements_text(new.value_list) v) then
+        raise exception 'field "%" has a repeated value in %', f.key, new.value_list
+          using errcode = 'check_violation';
+      end if;
+      if not (f.allowed_values @> new.value_list) then
+        raise exception 'list % contains a value not allowed for field "%". Allowed: %',
+          new.value_list, f.key, f.allowed_values
           using errcode = 'check_violation';
       end if;
     when 'number' then
@@ -314,7 +338,7 @@ select
   coalesce(
     jsonb_object_agg(
       sf.key,
-      coalesce(to_jsonb(ps.value_number), to_jsonb(ps.value_boolean), to_jsonb(ps.value_text))
+      coalesce(to_jsonb(ps.value_number), to_jsonb(ps.value_boolean), ps.value_list, to_jsonb(ps.value_text))
     ) filter (where sf.key is not null),
     '{}'::jsonb
   ) as specs

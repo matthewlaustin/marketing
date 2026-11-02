@@ -20,6 +20,11 @@ also apply.
 7. **Do not mark anything verified.** Verification is a person's action.
 8. **Do not create product types, skills or tooling** without an agreed decision recorded in
    `docs/decisions/`.
+9. **"Optional" means not that product.** A size, voltage or feature a manufacturer marks
+   optional is not recorded as a spec. The accessory that provides it is linked to the product
+   instead, once the link format is agreed.
+10. **Record every value a list field allows.** A pump rated for 115 V and 230 V records both;
+    a pump with two port sizes records both.
 
 ## Data types in plain terms
 
@@ -29,3 +34,4 @@ also apply.
 | `number` | A number, no unit in the value itself; the unit is on the field | `value_number` |
 | `boolean` | Yes or no | `value_boolean` |
 | `enum` | One choice from the field's fixed list of allowed values | `value_text` |
+| `multi_enum` | One or more choices from the field's fixed list, no repeats | `value_list` (a JSON array of strings) |

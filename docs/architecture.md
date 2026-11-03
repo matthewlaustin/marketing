@@ -25,7 +25,8 @@ marketing/
     └── <department>/
         ├── README.md            What the department does and how its work flows
         ├── CLAUDE.md            Department-specific rules for Claude
-        └── ...                  Whatever the department needs, agreed first
+        ├── .claude/skills/      Claude skills that do the department's work, one folder each
+        └── ...                  Whatever else the department needs, agreed first
 ```
 
 ## The product data model
@@ -68,7 +69,8 @@ meaning, unit, data type, allowed values, required or optional. Write it in the 
 the type's data dictionary, load it into the database, and mark the type `approved`.
 
 **Step 2, extraction.** For each product, pull data from manufacturer websites, spec sheets,
-manuals and images, and write it **only into agreed fields**, each value with its source.
+manuals and images, and write it **only into agreed fields**, each value with its source. The
+`extract-product` skill under the department's `.claude/skills/` does this (decision 0007).
 Anything useful that does not fit an agreed field goes into `proposed_spec_fields`, a holding
 area that feeds back into Step 1 as a revision of the field list. It never silently becomes a
 spec.

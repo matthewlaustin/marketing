@@ -41,9 +41,11 @@ images, and written **only into the agreed fields**. Every value records:
 A value with no source is refused by the database. A value that does not fit the field's data
 type or allowed values is refused. Nothing is ever guessed or filled in to look complete.
 
-The `extract-product` skill does this step. Ask Claude to extract, draft or add a product by
-brand and part number; it produces a draft record file under `work/drafts/` and the SQL that
-loads it, which the database session applies on a Neon branch first.
+The pipeline under `pipeline/` does this step for routine products: give it a brand and part
+number, and it drafts the record with one model call for a fraction of a dollar. The
+`extract-product` skill does the same job the slow, careful way for products the pipeline
+flags. Both produce a draft record file under `work/drafts/` and the SQL that loads it, which
+the database session applies on a Neon branch first.
 
 A size or feature the manufacturer marks "optional" belongs to an accessory, not the product.
 The accessory becomes a draft product of its own and is linked to the product as an
@@ -72,7 +74,8 @@ The database enforces the `draft` exit rule itself. The rest is working agreemen
 | `CLAUDE.md` | Rules Claude follows when working in this department |
 | `product-types/README.md` | Checklist for defining and approving a product type |
 | `product-types/pool-pump/` | The first product type, used as the template for all others |
-| `.claude/skills/extract-product/` | The skill that does Step 2: fetches manufacturer sources, drafts a record, validates it, writes the load SQL (decision 0007) |
+| `pipeline/` | The routine way to do Step 2: code fetches the documents, one model call drafts the record, the validator checks it (decision 0009) |
+| `.claude/skills/extract-product/` | The skill for hard cases: Claude works the product out step by step, same record format and checks (decision 0007) |
 | `../../work/` | Fetched sources and draft records, ignored by git; the database is the only permanent home for product data |
 | `../../database/` | The tables and seeds this department's data lives in |
 

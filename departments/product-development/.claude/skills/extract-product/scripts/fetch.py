@@ -35,10 +35,8 @@ class TextExtractor(HTMLParser):
         t = re.sub(r"\n\s*\n+", "\n\n", t)
         return t.strip()
 
-def main():
-    if len(sys.argv) != 3:
-        print(__doc__); sys.exit(2)
-    url, outdir = sys.argv[1], sys.argv[2]
+def fetch_one(url, outdir):
+    """Fetch one URL into outdir. Returns the source record dict, or raises RuntimeError."""
     os.makedirs(outdir, exist_ok=True)
     nums = [int(m.group(1)) for f in os.listdir(outdir) for m in [re.match(r"^(\d+)-", f)] if m]
     n = (max(nums) + 1) if nums else 1
@@ -48,7 +46,7 @@ def main():
     cmd = ["curl", "-sSL", "--max-time", "90", "-A", "marketing-extract/1.0", "-D", hdr, "-o", raw, url]
     r = subprocess.run(cmd, capture_output=True, text=True)
     if r.returncode != 0:
-        print(f"FETCH FAILED {url}: {r.stderr.strip()}"); sys.exit(1)
+        raise RuntimeError(f"FETCH FAILED {url}: {r.stderr.strip()}")
     ctype = ""
     try:
         for line in open(hdr, errors="replace"):
@@ -63,7 +61,7 @@ def main():
         pdf = raw[:-4] + ".pdf"; os.replace(raw, pdf); raw = pdf
         p = subprocess.run(["pdftotext", "-layout", pdf, txt], capture_output=True, text=True)
         if p.returncode != 0:
-            print(f"PDF TEXT FAILED {url}: {p.stderr.strip()}"); sys.exit(1)
+            raise RuntimeError(f"PDF TEXT FAILED {url}: {p.stderr.strip()}")
     else:
         htmlpath = raw[:-4] + ".html"; os.replace(raw, htmlpath); raw = htmlpath
         data = open(htmlpath, "rb").read().decode("utf-8", errors="replace")
@@ -73,8 +71,17 @@ def main():
     rec = {"url": url, "kind": "pdf" if is_pdf else "html", "raw": raw, "text": txt, "title": title,
            "fetched_at": datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"), "text_bytes": size}
     with open(os.path.join(outdir, "sources.jsonl"), "a") as f: f.write(json.dumps(rec) + "\n")
+    return rec
+
+def main():
+    if len(sys.argv) != 3:
+        print(__doc__); sys.exit(2)
+    try:
+        rec = fetch_one(sys.argv[1], sys.argv[2])
+    except RuntimeError as e:
+        print(e); sys.exit(1)
     print(json.dumps(rec, indent=2))
-    if size < 200:
+    if rec["text_bytes"] < 200:
         print("WARNING: very little text extracted; the page may be script-rendered or blocked. Try the spec sheet PDF instead.")
 
 if __name__ == "__main__":

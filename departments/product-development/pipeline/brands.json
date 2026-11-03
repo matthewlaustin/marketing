@@ -1,0 +1,11 @@
+{
+  "_note": "Where to look for a brand's product pages when no URL is given. domains: hosts that count as the manufacturer. sitemaps and category_pages: scanned for links that contain the part number.",
+  "hayward": {
+    "name": "Hayward",
+    "manufacturer": { "name": "Hayward Industries, Inc.", "slug": "hayward-industries", "website": "https://www.hayward.com" },
+    "website": "https://www.hayward.com",
+    "domains": ["www.hayward.com", "hayward.com", "commerce.hayward-pool-assets.com", "ca.hayward.com"],
+    "sitemaps": ["https://www.hayward.com/sitemap.xml"],
+    "category_pages": ["https://www.hayward.com/products/pool-pumps.html"]
+  }
+}

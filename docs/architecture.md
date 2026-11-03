@@ -87,9 +87,14 @@ spec.
 
 See `departments/product-development/product-types/README.md` for the checklist.
 
+## Code
+
+Application code is Python (decision 0008) and lives under the department that owns it. The
+first is `departments/product-development/pipeline/`, which drafts product records with one
+model call per product (decision 0009); the `extract-product` skill handles the hard cases.
+
 ## What is deliberately deferred
 
 - Media file storage. Decided: Cloudflare R2 (decision 0004). Nothing is built until the
   first upload is needed; the database stores URLs only.
-- The programming language for anything that consumes the data.
 - Other sub-departments.

@@ -15,5 +15,6 @@ working in under `departments/`.
    language before any technical detail. Explain a term the first time you use it.
 4. **Neon work is deliberate.** Apply database files to a Neon branch first, never straight to
    `main`. Do not experiment against Neon from a conversation whose purpose is something else.
-5. **No application code yet.** Phase 1 is SQL, JSON and Markdown only. A programming
-   language is chosen when something needs to consume the data, and that is a recorded decision.
+5. **Application code is Python** (decision 0008), lives next to the department that owns it, and
+   is added only by an agreed decision. Nothing in the repository holds product data; code reads
+   and writes the database.

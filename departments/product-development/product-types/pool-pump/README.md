@@ -1,7 +1,8 @@
 # Pool pump
 
-**Status:** approved. **Version:** 1. Reviewed field by field on the Marketing page on
-2026-11-02. The port size list stands as proposed until a catalog review is done.
+**Status:** approved. **Version:** 2. Version 1 was reviewed field by field on the Marketing
+page on 2026-11-02; version 2 (2026-11-03) adds 208 and 575 to the voltage list. The port size
+list stands as proposed until a catalog review is done.
 
 A pool pump circulates water through a swimming pool's filtration system. This is the first
 product type and the template for all others. The field list below is what we have agreed to
@@ -37,7 +38,7 @@ means more than one of the allowed values can be recorded for one product.
 | `horsepower` | Horsepower | number | hp | yes | Rated motor horsepower as stated by the manufacturer |
 | `total_horsepower` | Total horsepower | number | hp | no | Total horsepower including service factor, where the manufacturer states it |
 | `speed_type` | Speed type | one of: `single`, `dual`, `variable` | | yes | Whether the motor runs at one speed, two speeds, or a continuously variable speed |
-| `voltage` | Voltage | several from: `115`, `230`, `460` | V | yes | Every supply voltage the pump itself is rated for. A 115/230 pump records both |
+| `voltage` | Voltage | several from: `115`, `208`, `230`, `460`, `575` | V | yes | Every supply voltage the pump itself is rated for. A 115/230 pump records both; a 208-230 pump records 208 and 230 |
 | `phase` | Phase | one of: `single`, `three` | | no | Single-phase or three-phase electrical supply |
 | `max_amperage` | Maximum amperage | number | A | no | Highest current draw stated by the manufacturer |
 | `max_flow_rate` | Maximum flow rate | number | gpm | no | Highest flow rate stated by the manufacturer, in US gallons per minute |
@@ -55,6 +56,9 @@ means more than one of the allowed values can be recorded for one product.
 ## Rules for extraction
 
 - Record numbers without units; the unit is fixed by the field.
+- **Voltage and phase are separate facts.** 115, 208 and 230 are usually single-phase; 460 and
+  575 are three-phase only, so a product with either must have `phase` = `three`. A "208-230 V"
+  rating records both 208 and 230.
 - **Record every size and voltage the product itself has.** A pump rated 115/230 gets both
   voltages. A pump with 1.5 in. and 2 in. unions gets both sizes.
 - **A size or voltage the manufacturer marks "optional" is not recorded.** Optional means an

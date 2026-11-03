@@ -5,8 +5,10 @@
 -- This file must be kept in step with it. Re-running is safe: existing rows
 -- are updated in place, matched by (product type, key).
 --
--- Status: approved, version 2. Version 1 was reviewed field by field on the Marketing
--- page on 2026-11-02; version 2 (2026-11-03) adds 208 and 575 to the voltage list.
+-- Status: approved, version 3. Version 1 was reviewed field by field on the Marketing
+-- page on 2026-11-02; version 2 (2026-11-03) adds 208 and 575 to the voltage list;
+-- version 3 (2026-11-03) writes port sizes with their unit, reads "2 x 2.5 in" as two
+-- sizes, and drops housing_material and strainer_basket_included.
 -- The port_size list stands as proposed until the catalog review.
 
 begin;
@@ -17,7 +19,7 @@ values (
   'Pool pump',
   'A pump that circulates water through a swimming pool''s filtration system.',
   'approved',
-  2
+  3
 )
 on conflict (slug) do update
   set name        = excluded.name,
@@ -37,9 +39,7 @@ f(sort_order, key, label, description, data_type, unit, allowed_values, is_requi
   (70,  'max_flow_rate',            'Maximum flow rate',        'Highest flow rate stated by the manufacturer, in US gallons per minute.',                         'number',     'gpm', null,                                                                          false),
   (80,  'application',              'Application',              'Every kind of pool the pump is intended for. A pump suited to both records both.',                 'multi_enum', null,  '["aboveground", "inground"]'::jsonb,                                          true),
   (90,  'self_priming',             'Self priming',             'Whether the pump can lift water and start on its own without being manually filled.',             'boolean',    null,  null,                                                                          false),
-  (100, 'port_size',                'Port size',                'Every connection size the pump itself accepts, in inches. A size the manufacturer marks optional is not recorded.', 'multi_enum', 'in', '["1.0", "1.5", "2.0", "2.5", "3.0", "3.5", "4.0 x 6.0 ANSI flange"]'::jsonb, true),
-  (110, 'housing_material',         'Housing material',         'Material of the pump housing, as stated by the manufacturer.',                                    'text',       null,  null,                                                                          false),
-  (120, 'strainer_basket_included', 'Strainer basket included', 'Whether a hair and lint strainer basket is included.',                                            'boolean',    null,  null,                                                                          false),
+  (100, 'port_size',                'Port size',                'Every connection size the pump itself accepts. "2 x 2.5 in unions" means 2.0 in and 2.5 in. A size the manufacturer marks optional is not recorded.', 'multi_enum', null, '["1.0 in", "1.5 in", "2.0 in", "2.5 in", "3.0 in", "3.5 in", "4.0 x 6.0 in ANSI flange"]'::jsonb, true),
   (130, 'energy_star_certified',    'ENERGY STAR certified',    'Whether the pump carries ENERGY STAR certification.',                                             'boolean',    null,  null,                                                                          false),
   (140, 'weighted_energy_factor',   'Weighted energy factor',   'The US Department of Energy efficiency rating (WEF), where published.',                           'number',     null,  null,                                                                          false),
   (150, 'certifications',           'Certifications',           'Safety and performance listings, for example UL, CSA, NSF/ANSI 50, as a comma-separated list.',   'text',       null,  null,                                                                          false),

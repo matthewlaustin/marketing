@@ -20,6 +20,7 @@ def build_schema(fields_json):
     specs = _obj({f["key"]: _nullable(_obj({"value": _value_schema(f), "source_url": S, "quote": S, "notes": _nullable(S)})) for f in fields_json["fields"]})
     product = _obj({
         "title": S, "short_description": S, "long_description": S,
+        "manufacturer_description": _nullable(S), "manufacturer_features": {"type": "array", "items": S}, "manufacturer_content_source_url": _nullable(S),
         "warranty_years": _nullable({"type": "number"}),
         "warranty_type": _nullable({"type": "string", "enum": ["full", "limited", "prorated"]}),
         "warranty_conditions": _nullable(S), "warranty_component_terms": _nullable(S), "warranty_source_url": _nullable(S),

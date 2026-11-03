@@ -1,8 +1,9 @@
 # Pool pump
 
-**Status:** approved. **Version:** 2. Version 1 was reviewed field by field on the Marketing
-page on 2026-11-02; version 2 (2026-11-03) adds 208 and 575 to the voltage list. The port size
-list stands as proposed until a catalog review is done.
+**Status:** approved. **Version:** 3. Version 1 was reviewed field by field on the Marketing
+page on 2026-11-02. Version 2 added 208 and 575 to the voltage list. Version 3 writes port
+sizes with their unit, reads "2 x 2.5 in" as two sizes, and drops housing material and strainer
+basket (all 2026-11-03, owner's decisions in chat).
 
 A pool pump circulates water through a swimming pool's filtration system. This is the first
 product type and the template for all others. The field list below is what we have agreed to
@@ -19,6 +20,9 @@ These are columns on the `products` table and are not repeated per type.
 | mpn | Manufacturer part number: the identifier the manufacturer itself uses. Unique within a brand |
 | title | Our product title. Required before a product leaves draft |
 | short_description, long_description | Our descriptions |
+| manufacturer_description | The manufacturer's own product description, word for word |
+| manufacturer_features | The manufacturer's own feature bullets, one per line, word for word |
+| manufacturer_content_source_url | Where the description and features came from |
 | warranty_years | The headline warranty term as a number of years, so products compare across brands |
 | warranty_type | One of `full`, `limited`, `prorated` |
 | warranty_conditions | What the manufacturer requires for the full term, in its own words |
@@ -44,9 +48,7 @@ means more than one of the allowed values can be recorded for one product.
 | `max_flow_rate` | Maximum flow rate | number | gpm | no | Highest flow rate stated by the manufacturer, in US gallons per minute |
 | `application` | Application | several from: `aboveground`, `inground` | | yes | Every kind of pool the pump is intended for. A pump suited to both records both |
 | `self_priming` | Self priming | yes/no | | no | Whether the pump can lift water and start on its own without being manually filled |
-| `port_size` | Port size | several from: `1.0`, `1.5`, `2.0`, `2.5`, `3.0`, `3.5`, `4.0 x 6.0 ANSI flange` | in | yes | Every connection size the pump itself accepts |
-| `housing_material` | Housing material | text | | no | Material of the pump housing, as stated by the manufacturer |
-| `strainer_basket_included` | Strainer basket included | yes/no | | no | Whether a hair and lint strainer basket is included |
+| `port_size` | Port size | several from: `1.0 in`, `1.5 in`, `2.0 in`, `2.5 in`, `3.0 in`, `3.5 in`, `4.0 x 6.0 in ANSI flange` | | yes | Every connection size the pump itself accepts |
 | `energy_star_certified` | ENERGY STAR certified | yes/no | | no | Whether the pump carries ENERGY STAR certification |
 | `weighted_energy_factor` | Weighted energy factor | number | | no | The US Department of Energy efficiency rating (WEF), where published |
 | `certifications` | Certifications | text | | no | Safety and performance listings, for example UL, CSA, NSF/ANSI 50, as a comma-separated list |
@@ -60,7 +62,8 @@ means more than one of the allowed values can be recorded for one product.
   575 are three-phase only, so a product with either must have `phase` = `three`. A "208-230 V"
   rating records both 208 and 230.
 - **Record every size and voltage the product itself has.** A pump rated 115/230 gets both
-  voltages. A pump with 1.5 in. and 2 in. unions gets both sizes.
+  voltages. A pump described as having "2 x 2.5 in unions" gets both `2.0 in` and `2.5 in`;
+  that phrasing means the unions fit both sizes.
 - **A size or voltage the manufacturer marks "optional" is not recorded.** Optional means an
   accessory makes it possible; the product is not that size. The accessory becomes a draft
   product of its own and is linked to the pump in `product_links` with kind `accessory`.

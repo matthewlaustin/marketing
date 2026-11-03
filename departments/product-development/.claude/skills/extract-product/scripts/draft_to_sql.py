@@ -35,8 +35,8 @@ def main():
     w(f"  select id into v_type from product_types where slug = {q(p['product_type'])} and status = 'approved';")
     w(f"  if v_type is null then raise exception 'product type % is not approved', {q(p['product_type'])}; end if;")
     w(f"  if exists (select 1 from products where brand_id = v_brand and mpn = {q(p['mpn'])}) then raise exception 'product % already exists for brand %; this load does not overwrite', {q(p['mpn'])}, {q(b['slug'])}; end if;")
-    cols = ["brand_id", "product_type_id", "mpn", "title", "short_description", "long_description", "warranty_years", "warranty_type", "warranty_conditions", "warranty_component_terms", "status"]
-    vals = ["v_brand", "v_type", q(p["mpn"]), q(p.get("title")), q(p.get("short_description")), q(p.get("long_description")), q(p.get("warranty_years")), q(p.get("warranty_type")), q(p.get("warranty_conditions")), q(p.get("warranty_component_terms")), "'draft'"]
+    cols = ["brand_id", "product_type_id", "mpn", "title", "short_description", "long_description", "manufacturer_description", "manufacturer_features", "manufacturer_content_source_url", "warranty_years", "warranty_type", "warranty_conditions", "warranty_component_terms", "status"]
+    vals = ["v_brand", "v_type", q(p["mpn"]), q(p.get("title")), q(p.get("short_description")), q(p.get("long_description")), q(p.get("manufacturer_description")), (jq(p["manufacturer_features"]) if p.get("manufacturer_features") else "null"), q(p.get("manufacturer_content_source_url")), q(p.get("warranty_years")), q(p.get("warranty_type")), q(p.get("warranty_conditions")), q(p.get("warranty_component_terms")), "'draft'"]
     w(f"  insert into products ({', '.join(cols)}) values ({', '.join(vals)}) returning id into v_product;")
     for md in r.get("media") or []:
         w(f"  insert into product_media (product_id, kind, url, title, alt_text, sort_order, source_url) values (v_product, {q(md['kind'])}, {q(md['url'])}, {q(md.get('title'))}, {q(md.get('alt_text'))}, {q(md.get('sort_order', 0))}, {q(md.get('source_url'))});")

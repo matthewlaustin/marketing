@@ -117,6 +117,10 @@ create table products (
   title              text,
   short_description  text,
   long_description   text,
+  -- The manufacturer's own words, kept verbatim (decision 0010).
+  manufacturer_description        text,
+  manufacturer_features           jsonb check (manufacturer_features is null or jsonb_typeof(manufacturer_features) = 'array'),
+  manufacturer_content_source_url text,
   -- Standard warranty fields, the same for every product type (decision 0005).
   warranty_years            numeric check (warranty_years is null or warranty_years >= 0),
   warranty_type             text check (warranty_type is null or warranty_type in ('full', 'limited', 'prorated')),

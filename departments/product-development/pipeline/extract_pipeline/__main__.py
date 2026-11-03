@@ -56,7 +56,9 @@ def main():
     system_text = config.system_prompt()
     if a.dry_run:
         dry = os.path.join(outdir, tag + ".dryrun.json")
-        json.dump({"model": a.model, "system": system_text, "messages": messages, "schema": schema}, open(dry, "w"), indent=1)
+        slim = dict(bundle); slim["sources"] = [{k: v for k, v in s.items() if k != "text"} for s in bundle["sources"]]
+        json.dump({"model": a.model, "brand": a.brand, "mpn": a.mpn, "type": a.type, "url": url, "bundle": slim,
+                   "system": system_text, "messages": messages, "schema": schema}, open(dry, "w"), indent=1)
         chars = len(system_text) + sum(len(c["text"]) for c in messages[0]["content"])
         est = estimate_input_cost(chars, a.model)
         print(f"dry run: prompt written to {dry}; about {est['tokens_est']:,} input tokens, input cost about ${est['input_cost_est']:.3f} at {a.model} rates (output extra)")

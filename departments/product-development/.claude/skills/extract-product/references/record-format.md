@@ -23,6 +23,9 @@ notes. The pool pump `example.json` in the type folder is a complete instance.
 | `mpn` | yes | manufacturer part number, exactly as the manufacturer writes it |
 | `title` | yes for leaving draft | our title |
 | `short_description`, `long_description` | no | our text, every claim traceable to a source |
+| `manufacturer_description` | recommended | the manufacturer's own product description, word for word |
+| `manufacturer_features` | recommended | list of strings: the manufacturer's feature bullets, word for word |
+| `manufacturer_content_source_url` | when either is set | where they came from |
 | `warranty_years` | no | number |
 | `warranty_type` | no | `full`, `limited` or `prorated` |
 | `warranty_conditions`, `warranty_component_terms` | no | text |

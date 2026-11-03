@@ -101,6 +101,10 @@ For each field in `fields.json`, look for the value in the sources.
 - `short_description`: one or two sentences, only facts present in the sources.
 - `long_description`: a paragraph in our own words. Every claim in it must be traceable to a
   source; marketing adjectives the manufacturer uses are fine to drop and not fine to invent.
+- `manufacturer_description` and `manufacturer_features`: the manufacturer's own description and
+  feature bullets, copied word for word from the product page or spec sheet, with
+  `manufacturer_content_source_url`. These are kept separately from our own text so a reviewer
+  can see what the manufacturer claims and what we wrote.
 - Warranty: `warranty_years`, `warranty_type` (`full`, `limited`, `prorated`),
   `warranty_conditions` in the manufacturer's words, `warranty_component_terms` only when parts
   differ, and `warranty_source_url`. These are shared across all product types (decision 0005).

@@ -33,6 +33,20 @@ without calling the model; it writes the exact prompt and estimates the input co
 and `--effort` choose the model (default Claude Sonnet 5.5, medium effort). Output goes to
 `work/drafts/pipeline/`, which git ignores.
 
+## Running it from Claude Code, without an API key
+
+The model step can also be done by a Claude Code subagent on the subscription instead of the
+API. Run the pipeline with `--dry-run`, which writes `work/drafts/pipeline/<brand>__<mpn>.dryrun.json`
+holding the instructions, the documents and the output format. Ask Claude to have a subagent of
+the chosen model read that file, write its answer as `<brand>__<mpn>.answer.json`, and run:
+
+```
+python -m extract_pipeline.finish work/drafts/pipeline/<brand>__<mpn>.dryrun.json work/drafts/pipeline/<brand>__<mpn>.answer.json --model claude-sonnet-5-5
+```
+
+The finish step converts the answer into the draft record, validates it and writes the load
+SQL, exactly as the API path does.
+
 ## Cost
 
 Measured and estimated per product, at API list prices:

@@ -83,4 +83,4 @@ The database enforces the `draft` exit rule itself. The rest is working agreemen
 
 | Type | Status | Version |
 |---|---|---|
-| Pool pump | approved (port size list pending catalog review) | 2 |
+| Pool pump | approved (port size list pending catalog review) | 3 |

@@ -8,7 +8,7 @@ Status: agreed (owner, in chat)
 Every product has three more shared columns: `manufacturer_description` (the manufacturer's
 product description, word for word), `manufacturer_features` (its feature bullets as a list of
 strings, word for word) and `manufacturer_content_source_url` (where they came from). Our own
-`short_description` and `long_description` stay separate.
+Our own `long_description` stays separate.
 
 ## Why
 

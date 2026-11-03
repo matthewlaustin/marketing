@@ -57,7 +57,7 @@ else.
 | `brands` | Brand, owned by a manufacturer |
 | `product_types` | Kind of product, with `draft` or `approved` status |
 | `spec_fields` | Agreed specification field for one product type |
-| `products` | Product, with our text, the manufacturer's own description and features, and the standard warranty fields |
+| `products` | Product, with our title and description, the manufacturer's own description and features, and the standard warranty fields |
 | `product_media` | Image, manual, spec sheet or video for a product (URL only) |
 | `product_specs` | Value of one field for one product, with its source |
 | `proposed_spec_fields` | Data found during extraction that has no agreed field yet |

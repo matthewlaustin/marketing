@@ -115,7 +115,6 @@ create table products (
   -- Manufacturer part number: the identifier the manufacturer itself uses.
   mpn                text not null,
   title              text,
-  short_description  text,
   long_description   text,
   -- The manufacturer's own words, kept verbatim (decision 0010).
   manufacturer_description        text,

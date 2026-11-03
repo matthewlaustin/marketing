@@ -3,7 +3,8 @@
 **Status:** approved. **Version:** 3. Version 1 was reviewed field by field on the Marketing
 page on 2026-11-02. Version 2 added 208 and 575 to the voltage list. Version 3 writes port
 sizes with their unit, reads "2 x 2.5 in" as two sizes, and drops housing material and strainer
-basket (all 2026-11-03, owner's decisions in chat).
+basket (all 2026-11-03, owner's decisions in chat). The shared short description was dropped the
+same day (Marketing page, question 24).
 
 A pool pump circulates water through a swimming pool's filtration system. This is the first
 product type and the template for all others. The field list below is what we have agreed to
@@ -19,7 +20,7 @@ These are columns on the `products` table and are not repeated per type.
 | brand | The brand the product is sold under. Each brand belongs to a manufacturer |
 | mpn | Manufacturer part number: the identifier the manufacturer itself uses. Unique within a brand |
 | title | Our product title. Required before a product leaves draft |
-| short_description, long_description | Our descriptions |
+| long_description | Our description |
 | manufacturer_description | The manufacturer's own product description, word for word |
 | manufacturer_features | The manufacturer's own feature bullets, one per line, word for word |
 | manufacturer_content_source_url | Where the description and features came from |

@@ -19,9 +19,10 @@ with the reasons behind them.
    the type instead (see `product-types/README.md`).
 2. **A brand and a manufacturer part number (MPN).** If only a model name was given, find the
    MPN on the manufacturer's site first; the MPN is what makes the record unique within a brand.
-3. **Sources.** The manufacturer's own product page, spec sheet and manual. A reseller page is a
-   last resort and must be marked as such in the value's notes, because resellers copy each
-   other's mistakes. Only public pages and documents: never dig for embedded API keys, list a
+3. **Sources.** The manufacturer's own product page, spec sheet and manual, and nothing else.
+   Reseller pages are never a source for a value (decision 0011): resellers copy each other's
+   mistakes, and a value we cannot trace to the manufacturer is not worth having. Only public
+   pages and documents: never dig for embedded API keys, list a
    site's storage buckets, or work around a login, a block or a captcha. If the public route is
    closed, say so in the report and stop.
 
@@ -33,13 +34,14 @@ the exact MPN:
 - Try the site's `sitemap.xml`, its discontinued-products or legacy-support list, and its
   regional stores (for example a `ca.` or `.co.uk` site), which often keep older models longer.
 - A **variant part number** (a suffix letter, a regional code, a `2S` two-speed marker) is a
-  different product. Its documents are corroboration for the exact MPN, not a source for it:
-  quote them in `notes`, do not record their figures as this product's specs.
+  different product and is disregarded: its documents are not a source and not corroboration
+  for this one (decision 0011). Mention it in the report so a person can decide whether the
+  variant should be extracted as its own product.
 - A **successor model** the manufacturer names belongs in the report and, until a link kind for
   it is agreed, in `proposed_spec_fields` as `successor_mpn`.
-- When nothing from the manufacturer names the exact MPN, a reseller listing that does may
-  supply values, each marked `RESELLER` in its `notes` and corroborated where possible. Say in
-  the report that a reseller was used and for which fields.
+- When nothing from the manufacturer names the exact MPN, the product stays in draft with
+  what the manufacturer does say, which may be nothing. Say so in the report. Do not fill the
+  gap from resellers.
 
 ## The record you produce
 
@@ -76,9 +78,8 @@ For each field in `fields.json`, look for the value in the sources.
   per field). An empty required field keeps the product in `draft`, which is the correct
   outcome. Never guess, infer from a similar model, or fill a value in to look complete. A
   wrong spec on a live product costs far more than a missing one.
-- **Sources disagree:** the manufacturer's own document for this exact part number wins. A
-  reseller value that contradicts a manufacturer document, even one for a variant of the part,
-  is not recorded; leave the field out and say why. Two resellers agreeing is not evidence.
+- **Sources disagree:** when two manufacturer documents for this exact part number disagree,
+  leave the field out and say so in `left_out`; a person decides.
 - **Found but does not fit:** if the source gives something useful that no agreed field
   covers (noise level, cord length, a flow curve), put it in `proposed_spec_fields` with the
   value and source. It feeds a revision of the field list; it never becomes a spec by itself.
@@ -98,7 +99,6 @@ For each field in `fields.json`, look for the value in the sources.
   specs that distinguish the product, and the product type in plain words. For a pool pump:
   `Example Pumps EX-150-VS 1.5 HP Variable Speed Inground Pool Pump, 230 V`. Use only specs
   that are recorded in `specs`; a title must not claim what the record does not.
-- `short_description`: one or two sentences, only facts present in the sources.
 - `long_description`: a paragraph in our own words. Every claim in it must be traceable to a
   source; marketing adjectives the manufacturer uses are fine to drop and not fine to invent.
 - `manufacturer_description` and `manufacturer_features`: the manufacturer's own description and
@@ -142,7 +142,7 @@ End with a short report in this shape:
 Sources: <n> (list URLs)
 Filled: <n> of <total> fields (<n> of <required> required)
 Missing required: <keys, or none>
-Reseller used for: <keys, or none>
+Manufacturer documents naming the exact part: <n>
 Proposed fields: <keys, or none>
 Accessories linked: <mpns, or none>
 Files: work/drafts/<file>.json, work/drafts/<file>.sql

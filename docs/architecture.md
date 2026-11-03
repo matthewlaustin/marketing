@@ -34,8 +34,9 @@ marketing/
 Product development produces data for many product types, and each type needs different
 fields. The model keeps that cheap:
 
-- Fields that **every** product shares (brand, part number, title, descriptions, the four
-  standard warranty fields, status) are ordinary columns in the `products` table.
+- Fields that **every** product shares (brand, part number, title, our description, the
+  manufacturer's own description and features, the four standard warranty fields, status) are
+  ordinary columns in the `products` table.
 - Fields that are **specific to a type** (horsepower for a pump, square footage for a filter)
   are not columns. They are rows in `spec_fields`: one row per field per product type. This is
   the agreed field list for the type.

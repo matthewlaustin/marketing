@@ -34,7 +34,7 @@ def to_record(data, fields_json, bundle, brand_cfg, brand_slug, mpn, model, prod
         if e.get("notes"): s["notes"] = e["notes"]
         specs.append(s)
     p = data["product"]
-    product = {"product_type": fields_json["slug"], "mpn": mpn, "title": p.get("title"), "short_description": p.get("short_description"), "long_description": p.get("long_description"),
+    product = {"product_type": fields_json["slug"], "mpn": mpn, "title": p.get("title"), "long_description": p.get("long_description"),
                "manufacturer_description": p.get("manufacturer_description"), "manufacturer_features": p.get("manufacturer_features") or [], "manufacturer_content_source_url": p.get("manufacturer_content_source_url"),
                "warranty_years": p.get("warranty_years"), "warranty_type": p.get("warranty_type"), "warranty_conditions": p.get("warranty_conditions"),
                "warranty_component_terms": p.get("warranty_component_terms"), "warranty_source_url": p.get("warranty_source_url"), "status": "draft"}

@@ -39,6 +39,10 @@ images, and written **only into the agreed fields**. Every value records:
 A value with no source is refused by the database. A value that does not fit the field's data
 type or allowed values is refused. Nothing is ever guessed or filled in to look complete.
 
+A size or feature the manufacturer marks "optional" belongs to an accessory, not the product.
+The accessory becomes a draft product of its own and is linked to the product as an
+`accessory` (decision 0006).
+
 Useful data that does not fit any agreed field is not thrown away and is not forced in. It is
 recorded as a **proposed field** with an example value and a source. Proposed fields are
 reviewed in batches and either added to the field list (a new version, back to Step 1) or

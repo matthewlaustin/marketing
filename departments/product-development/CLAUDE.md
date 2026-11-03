@@ -21,8 +21,8 @@ also apply.
 8. **Do not create product types, skills or tooling** without an agreed decision recorded in
    `docs/decisions/`.
 9. **"Optional" means not that product.** A size, voltage or feature a manufacturer marks
-   optional is not recorded as a spec. The accessory that provides it is linked to the product
-   instead, once the link format is agreed.
+   optional is not recorded as a spec. The accessory that provides it becomes a draft product
+   of its own and is linked to the product in `product_links` with kind `accessory`.
 10. **Record every value a list field allows.** A pump rated for 115 V and 230 V records both;
     a pump with two port sizes records both.
 

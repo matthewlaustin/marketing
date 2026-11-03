@@ -57,6 +57,10 @@ does this checking, there is no application code in phase 1.
 A read-only view, `product_specs_json`, presents each product's specs as one JSON object so
 reading is easy while storage stays structured.
 
+Products relate to each other through `product_links`: an accessory sold for a product, a
+replacement part, or a compatible product (decision 0006). An accessory is a product record of
+its own. Anything a manufacturer marks "optional" is a link to the accessory, never a spec.
+
 ## The two-step workflow
 
 **Step 1, schema first.** For a product type, agree the list of specification fields: name,
@@ -85,6 +89,5 @@ See `departments/product-development/product-types/README.md` for the checklist.
 
 - Media file storage. Decided: Cloudflare R2 (decision 0004). Nothing is built until the
   first upload is needed; the database stores URLs only.
-- How accessory and replacement-part products link to a product (Marketing page, question 16).
 - The programming language for anything that consumes the data.
 - Other sub-departments.

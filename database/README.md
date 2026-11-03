@@ -61,6 +61,7 @@ else.
 | `product_media` | Image, manual, spec sheet or video for a product (URL only) |
 | `product_specs` | Value of one field for one product, with its source |
 | `proposed_spec_fields` | Data found during extraction that has no agreed field yet |
+| `product_links` | How one product relates to another: accessory, replacement part, compatible with |
 
 And one view, `product_specs_json`, which shows each product with its specs as one JSON object.
 
@@ -72,6 +73,7 @@ And one view, `product_specs_json`, which shows each product with its specs as o
   for a one-from-a-list field must be one of the allowed values, and for a several-from-a-list
   field must be a non-empty list of distinct allowed values.
 - A warranty type, when given, is `full`, `limited` or `prorated`.
+- A product link names two different products and a kind, and the same link is recorded once.
 - Every spec value must cite a source: a URL or a media record.
 - A product cannot leave `draft` until it has a title and every required field has a value.
 

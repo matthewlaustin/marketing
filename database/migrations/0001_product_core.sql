@@ -198,6 +198,30 @@ create table proposed_spec_fields (
 );
 
 -- ---------------------------------------------------------------------------
+-- Product links (decision 0006)
+-- How one product relates to another: an accessory sold for it, a
+-- replacement part, or a product it is compatible with. An accessory is a
+-- product record of its own. A size or feature a manufacturer marks
+-- "optional" is recorded as a link to the accessory, never as a spec.
+-- ---------------------------------------------------------------------------
+create table product_links (
+  id                 uuid primary key default gen_random_uuid(),
+  product_id         uuid not null references products(id) on delete cascade,
+  linked_product_id  uuid not null references products(id) on delete cascade,
+  kind               text not null check (kind in ('accessory', 'replacement_part', 'compatible_with')),
+  source_url         text,
+  notes              text,
+  created_at         timestamptz not null default now(),
+  updated_at         timestamptz not null default now(),
+  unique (product_id, linked_product_id, kind),
+  constraint no_self_link check (product_id <> linked_product_id)
+);
+
+create trigger product_links_updated_at
+  before update on product_links
+  for each row execute function set_updated_at();
+
+-- ---------------------------------------------------------------------------
 -- Rule: a spec value must fit its field, and the field must belong to the
 -- product's type.
 -- ---------------------------------------------------------------------------

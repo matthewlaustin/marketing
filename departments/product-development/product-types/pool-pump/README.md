@@ -58,8 +58,8 @@ means more than one of the allowed values can be recorded for one product.
 - **Record every size and voltage the product itself has.** A pump rated 115/230 gets both
   voltages. A pump with 1.5 in. and 2 in. unions gets both sizes.
 - **A size or voltage the manufacturer marks "optional" is not recorded.** Optional means an
-  accessory makes it possible; the product is not that size. The accessory is linked to the
-  product instead (how links are stored is being decided; see the Marketing page, question 16).
+  accessory makes it possible; the product is not that size. The accessory becomes a draft
+  product of its own and is linked to the pump in `product_links` with kind `accessory`.
 - If a manufacturer gives horsepower as a range or as "up to", record the stated rated value
   in `horsepower` and put the rest in the value's notes.
 - Anything useful that is not in this table (noise level, cord length, motor frame, flow

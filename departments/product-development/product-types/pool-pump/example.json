@@ -1,5 +1,5 @@
 {
-  "_note": "Illustrative only. The brand, part number and URLs are fictional so that no real product is described incorrectly. It shows the shape of a complete record: shared fields including the standard warranty fields, one value per agreed specification field, each with a source, and an optional union kit linked rather than recorded as a port size.",
+  "_note": "Illustrative only. The brand, part number and URLs are fictional so that no real product is described incorrectly. It shows the shape of a complete record: shared fields including the standard warranty fields, one value per agreed specification field, each with a source, and an optional union kit linked as an accessory product rather than recorded as a port size.",
   "manufacturer": { "name": "Example Pumps Inc.", "slug": "example-pumps-inc", "website": "https://example.com" },
   "brand": { "name": "Example Pumps", "slug": "example-pumps", "website": "https://example.com" },
   "product": {
@@ -40,7 +40,7 @@
     { "kind": "spec_sheet", "url": "https://example.com/docs/ex-150-vs-spec.pdf",    "title": "Specification sheet", "sort_order": 3 }
   ],
   "linked_products": [
-    { "_note": "How accessory links are stored is still being decided (Marketing page, question 16). Shown here so the optional union kit has a home.", "kind": "accessory", "mpn": "EX-UK-25", "title": "2.5 in. union kit", "source_url": "https://example.com/pumps/ex-150-vs/specs" }
+    { "kind": "accessory", "linked_product": { "brand": "example-pumps", "mpn": "EX-UK-25", "title": "2.5 in. union kit", "status": "draft" }, "source_url": "https://example.com/pumps/ex-150-vs/specs", "notes": "Listed as an optional kit on the pump's spec page." }
   ],
   "proposed_spec_fields": [
     { "suggested_key": "noise_level", "suggested_label": "Noise level", "example_value": "45 dB at low speed", "source_url": "https://example.com/pumps/ex-150-vs/specs", "rationale": "Stated on the spec page and relevant to buyers of variable speed pumps. Not in the agreed field list." }

@@ -12,7 +12,8 @@ notes. The pool pump `example.json` in the type folder is a complete instance.
 | `media` | no | list of `{kind, url, title?, alt_text?, sort_order?, source_url?}`; `kind` is `image`, `manual`, `spec_sheet`, `video` or `other` |
 | `linked_products` | no | list of `{kind, linked_product: {brand, mpn, title, status: "draft"}, source_url, notes?}`; `kind` is `accessory`, `replacement_part` or `compatible_with` |
 | `proposed_spec_fields` | no | list of `{suggested_key, suggested_label?, example_value, source_url, rationale}` |
-| `sources` | no | list of `{url, kind, fetched_at, title?}` for every document read |
+| `left_out` | recommended | object: field key → one sentence on why no value was recorded (not found, sources disagree, only stated for a variant part number) |
+| `sources` | no | list of `{url, kind, fetched_at, title?, used}` for every document read; `used: false` keeps a dead end on record without deleting it |
 
 ## `product`
 
@@ -41,5 +42,5 @@ notes. The pool pump `example.json` in the type folder is a complete instance.
 | `verified_by` | yes | always `null` from extraction |
 | `notes` | no | conversions, ambiguity, why a value was left out |
 
-A field that was not found is simply absent from `specs`. Do not add an entry with an empty
-value.
+A field that was not found is absent from `specs` and explained in `left_out`. Do not add a
+spec entry with an empty value.

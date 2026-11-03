@@ -40,7 +40,8 @@ def main():
         print(__doc__); sys.exit(2)
     url, outdir = sys.argv[1], sys.argv[2]
     os.makedirs(outdir, exist_ok=True)
-    n = len([f for f in os.listdir(outdir) if f.endswith(".txt")]) + 1
+    nums = [int(m.group(1)) for f in os.listdir(outdir) for m in [re.match(r"^(\d+)-", f)] if m]
+    n = (max(nums) + 1) if nums else 1
     base = re.sub(r"[^a-z0-9]+", "-", url.split("//", 1)[-1].lower()).strip("-")[:80]
     raw = os.path.join(outdir, f"{n:02d}-{base}.raw")
     hdr = raw + ".headers"
@@ -66,7 +67,7 @@ def main():
     else:
         htmlpath = raw[:-4] + ".html"; os.replace(raw, htmlpath); raw = htmlpath
         data = open(htmlpath, "rb").read().decode("utf-8", errors="replace")
-        ex = TextExtractor(); ex.feed(data); title = ex.title.strip()
+        ex = TextExtractor(); ex.feed(data); title = re.sub(r"\s+", " ", ex.title).strip()[:200]
         open(txt, "w").write(ex.text())
     size = os.path.getsize(txt)
     rec = {"url": url, "kind": "pdf" if is_pdf else "html", "raw": raw, "text": txt, "title": title,

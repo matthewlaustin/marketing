@@ -69,9 +69,15 @@ def main():
         txt = " ".join(str(s.get(x, "")) for x in ("quote", "notes")).lower()
         if "optional" in txt and dt == "multi_enum": warnings.append(f"{where}: the source mentions 'optional'; make sure optional sizes are linked as accessories, not recorded")
 
+    left_out = rec.get("left_out") or {}
+    for k in left_out:
+        if k not in fields: warnings.append(f"left_out[{k}]: not an agreed field")
+        elif k in seen: errors.append(f"left_out[{k}]: field has a value and a left-out reason; keep one")
     missing_req = [k for k, f in fields.items() if f.get("required") and k not in seen]
     missing_opt = [k for k, f in fields.items() if not f.get("required") and k not in seen]
     if missing_req: warnings.append("required fields without a value (product stays in draft): " + ", ".join(missing_req))
+    unexplained = [k for k in missing_req + missing_opt if k not in left_out]
+    if unexplained: warnings.append("fields left out with no reason in left_out: " + ", ".join(unexplained))
     if missing_opt: warnings.append("optional fields without a value: " + ", ".join(missing_opt))
 
     for i, m in enumerate(rec.get("media") or []):
